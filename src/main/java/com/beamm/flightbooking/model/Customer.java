@@ -9,23 +9,14 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "customers")
 @Entity
-@Table(name = "airports")
-public class Airport
-{
+public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer airportID;
+    private  Integer  customerID;
 
-    @Column(name = "airportname")
-    private String airportName;
-
-    @Column(name = "airportcode")
-    private String airportCode;
-
-    @Column(name = "airportcity")
-    private String airportCity;
-
-
+    @Column(name = "personid")
+    private  Integer personID;
 }

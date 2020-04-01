@@ -38,6 +38,7 @@ public class BootstrapData implements CommandLineRunner {
         airplaneService.saveAirplane(c2);
 
 
-        System.out.println("Total Airplanes: " + airplaneRepository.count());
+        System.out.println("Total Airplanes: ");
+        System.out.println(airplaneService.getAllAirplanesList());
     }
 }

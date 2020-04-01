@@ -1,17 +1,17 @@
 package com.beamm.flightbooking.bootstrap;
 
 import com.beamm.flightbooking.model.Airplane;
-import com.beamm.flightbooking.repository.AirplaneRepository;
+import com.beamm.flightbooking.service.AirplaneService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 @Component
 public class BootstrapData implements CommandLineRunner {
 
-    private final AirplaneRepository airplaneRepository;
+    private final AirplaneService airplaneService;
 
-    public BootstrapData(AirplaneRepository airplaneRepository) {
-        this.airplaneRepository = airplaneRepository;
+    public BootstrapData(AirplaneService airplaneService) {
+        this.airplaneService = airplaneService;
     }
 
     @Override
@@ -26,16 +26,16 @@ public class BootstrapData implements CommandLineRunner {
         c1.setBusinessClassSeats(14);
         c1.setEconomyClassSeats(73);
         c1.setFirstClassSeats(0);
-        airplaneRepository.save(c1);
+        airplaneService.saveAirplane(c1);
 
         Airplane c2 = new Airplane();
 
-        c2.setAirplaneModel("Ethiopian");
+        c2.setAirplaneModel("Kenyan");
         c2.setAirplaneSerialNumber("kcds");
         c2.setBusinessClassSeats(14);
         c2.setEconomyClassSeats(73);
         c2.setFirstClassSeats(0);
-        airplaneRepository.save(c2);
+        airplaneService.saveAirplane(c2);
 
 
         System.out.println("Total Airplanes: " + airplaneRepository.count());

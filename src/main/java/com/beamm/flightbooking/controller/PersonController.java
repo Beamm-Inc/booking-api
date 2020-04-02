@@ -25,11 +25,7 @@ public class PersonController {
     }
 
     @GetMapping("/{id}")
-    public Person getPersonById(@PathVariable Integer id) {
-
-
-        return personService.getPersonById(id);
-    }
+    public Person getPersonById(@PathVariable Integer id) { return personService.getPersonById(id); }
 
 
     @PostMapping

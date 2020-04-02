@@ -1,7 +1,8 @@
 package com.beamm.flightbooking.service.impl;
 
 import com.beamm.flightbooking.model.Address;
-import com.beamm.flightbooking.repository.AdressRepository;
+import com.beamm.flightbooking.repository.AddressRepository;
+import com.beamm.flightbooking.repository.TripRepository;
 import com.beamm.flightbooking.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class AddressServiceImpl implements AddressService {
     @Autowired
-    AdressRepository adressRepository;
+    AddressRepository adressRepository;
 
 
     @Override

@@ -1,6 +1,15 @@
 package com.beamm.flightbooking.model;
 
-public enum FlightClass
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.io.Serializable;
+
+public enum FlightClass //////////////////implements Serializable
 {
-    FIRST,BUSINESS,ECONOMY;
+    @JsonProperty("first")
+    FIRST,
+    @JsonProperty("business")
+    BUSINESS,
+    @JsonProperty("economy")
+    ECONOMY;
 }

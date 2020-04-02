@@ -1,5 +1,6 @@
 package com.beamm.flightbooking.controller;
 
+import com.beamm.flightbooking.model.Airplane;
 import com.beamm.flightbooking.model.Passenger;
 import com.beamm.flightbooking.model.Person;
 import com.beamm.flightbooking.service.PassengerService;
@@ -34,16 +35,18 @@ public class PassengerController {
         return passengerService.getPassengerByPassport(passport);
     }
 
-    @GetMapping("/all")
-    public List<Passenger> getAllPassengers() {
-
-        return passengerService.getAllPassenger();
-    }
+//    @GetMapping("/all")
+//    public List<Passenger> getAllPassengers() {
+//
+//        return passengerService.getAllPassenger();
+//    }
     @GetMapping
     public Page<Passenger> list(@RequestParam(defaultValue = "0") int pageNo)
     {
         return passengerService.getAllPassengerPages(pageNo);
     }
+
+
     @PostMapping
     public ResponseEntity<Passenger> saveNewCustomer(@RequestBody @Valid Passenger passenger, BindingResult result, Principal principal)
     {

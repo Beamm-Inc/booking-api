@@ -30,7 +30,7 @@ public class CustomerController {
         return customerService.getCustomerById(id);
     }
 
-    @GetMapping("/")
+    @GetMapping("/all")
     public List<Customer> getAllCustomers() {
 
         return customerService.getAllCustomers();
@@ -41,10 +41,8 @@ public class CustomerController {
         return customerService.getAllCustomerPages(pageNo);
     }
     @PostMapping
-    public ResponseEntity<Customer> saveNewCustomer(@RequestBody @Valid Person person, BindingResult result, Principal principal)
+    public ResponseEntity<Customer> saveNewCustomer(@RequestBody @Valid Customer customer, BindingResult result, Principal principal)
     {
-        Customer customer = new Customer();
-        customer.setPersonID(person.getPersonID());
         return new ResponseEntity<>(this.customerService.saveCustomer(customer), HttpStatus.OK);
     }
 }

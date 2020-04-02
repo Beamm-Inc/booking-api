@@ -36,7 +36,7 @@ public class CustomerServiceImpl implements CustomerService {
     public HttpStatus deleteCustomerById(Integer id) {
         try {
             customerRepository.deleteById(id);
-            return HttpStatus.valueOf("Deleted Succesfully");
+            return HttpStatus.valueOf("Deleted Successfully");
 
         } catch (Exception ex) {
             return HttpStatus.valueOf("The customer does not exist");
@@ -50,7 +50,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     //TODO: implement
     @Override
-    public Customer getCustomerByuserNameAndpasswWord(String un, String pw) {
+    public Customer getCustomerByUserNameAndPassWord(String un, String pw) {
         return null;
     }
 }

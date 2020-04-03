@@ -9,14 +9,17 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "customers")
 @Entity
-public class Customer {
+@Table(name = "admins")
+public class Admin extends Role{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "customerid")
-    private  Integer  customerID;
+    @Column(name = "adminid")
+    private Integer adminID;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
-    private  Person person;
+    // TODO: Connect it with Security Module
+    @Override
+    public boolean login(String userName, String password) {
+        return false;
+    }
 }

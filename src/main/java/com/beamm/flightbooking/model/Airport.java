@@ -15,7 +15,7 @@ public class Airport
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "airportid")
     private Integer airportID;
 
     @Column(name = "airportname")

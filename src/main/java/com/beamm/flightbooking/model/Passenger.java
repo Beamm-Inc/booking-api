@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class Passenger {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "passangerid")
     private  Integer  passengerID;
 
     @Column(name="passportnumber")

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -32,6 +33,19 @@ public class ScheduledFlight {
     @Column(name = "arrivalDate")
     private LocalDate arrivalDate;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
-    private List<Passenger> passengers;
+    // TODO: Lock passenger list for concurrent adding of passengers to the list --> check if it full
+    @OneToMany(cascade = CascadeType.MERGE)
+    private List<Passenger> passengers = new ArrayList<>(capacity);
+
+    public ScheduledFlight(Flight flight, Airplane airplane, double currentPrice, LocalDate departureDate, LocalDate arrivalDate)
+    {
+        this.flight = flight;
+        this.airplane = airplane;
+        this.capacity = airplane.getFirstClassSeats() + airplane.getAirplaneID() + airplane.getEconomyClassSeats();
+        this.currentPrice = currentPrice;   //flight.getNominalPrice() + inflation;
+        this.departureDate = departureDate;
+        this.arrivalDate = arrivalDate;
+
+        passengers = new ArrayList<>(this.capacity);
+    }
 }

@@ -27,5 +27,6 @@ public class Airport
     @Column(name = "airportcity")
     private String airportCity;
 
+    // TODO: Add terminals
 
 }

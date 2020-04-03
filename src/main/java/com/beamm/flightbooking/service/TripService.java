@@ -11,4 +11,5 @@ public interface TripService {
     Trip saveTrip(Trip trip);
     Trip getByTicketNumber(String  ticketNumber);
     List<Trip> getAllTripList();
+    void deleteByTicketNumber(String ticketNumber) throws Exception;
 }

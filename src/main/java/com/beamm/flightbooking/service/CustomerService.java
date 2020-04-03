@@ -13,5 +13,5 @@ public interface CustomerService {
     Customer getCustomerById(Integer id);
     HttpStatus deleteCustomerById(Integer id);
     Customer saveCustomer(Customer customer);
-    Customer getCustomerByuserNameAndpasswWord(String un,String pw);
+    Customer getCustomerByUserNameAndPassWord(String un,String pw);
 }

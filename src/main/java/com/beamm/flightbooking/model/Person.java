@@ -33,8 +33,9 @@ public class Person {
     private String gender;
     @Column(name = "phonenumber")
     private String phoneNumber;
-
     @Column(name = "email")
     private String email;
 
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    private Address address;
 }

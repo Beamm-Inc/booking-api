@@ -9,14 +9,18 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "customers")
 @Entity
-public class Customer {
+@Table(name = "passengers")
+public class Passenger {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private  Integer  customerID;
+    private  Integer  passengerID;
+
+    @Column(name="passportnumber")
+    private String passportNumber;
 
     @OneToOne(cascade = CascadeType.PERSIST)
     private  Person person;
+
 }

@@ -14,6 +14,8 @@ public abstract class Role {
     Person person;
 
     private String role;
+    private String userName;
+    private String password;
 
     public abstract boolean login(String userName, String password);
 }

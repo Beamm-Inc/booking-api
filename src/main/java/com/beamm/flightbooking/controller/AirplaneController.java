@@ -29,17 +29,7 @@ public class AirplaneController
     }
 
     @PostMapping
-    /*public Airplane addNewAirplane(@Valid @ModelAttribute("airplane") Airplane airplane,
-                                 BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
-        {
-            return null;
-        }
-        return airplaneService.saveAirplane(airplane);
-    }*/
-
-
-    public ResponseEntity<Airplane> saveNewPerson(@RequestBody @Valid Airplane airplane, BindingResult result, Principal principal)
+    public ResponseEntity<Airplane> saveNewAirplane(@RequestBody @Valid Airplane airplane, BindingResult result, Principal principal)
     {
         if (result.hasErrors())
         {

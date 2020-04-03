@@ -5,6 +5,7 @@ import com.beamm.flightbooking.repository.PassengerRepository;
 import com.beamm.flightbooking.service.PassengerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -16,14 +17,13 @@ public class PassengerServiceImpl implements PassengerService {
     @Autowired
     PassengerRepository passengerRepository;
 
-    //TODO: implement
     @Override
     public Page<Passenger> getAllPassengerPages(int pageNo) {
-        return null;
+        return passengerRepository.findAll(PageRequest.of(pageNo,20));
     }
 
     @Override
-    public List<Passenger> getAllPassenger() {
+    public List<Passenger> getAllPassengers() {
         return passengerRepository.findAll();
     }
 
@@ -54,25 +54,29 @@ public class PassengerServiceImpl implements PassengerService {
     public HttpStatus deletePassengerById(Integer id) {
         try{
             passengerRepository.deleteById(id);
-            return HttpStatus.valueOf("Deleted passenger successfully.");
+            return HttpStatus.valueOf("Passenger successfully removed.");
         }
         catch(Exception  ex){
             return HttpStatus.FORBIDDEN;
         }
     }
 
-    // TODO: Shouldn't the argument be of type Person --> Same for Customer
     @Override
     public Passenger savePassenger(Passenger passenger) {
         return passengerRepository.save(passenger);
     }
-//    public Passenger savePassenger(Person person) {
-//        return passengerRepository.save(passenger);
-//    }
 
     // TODO: Implement
     @Override
-    public Passenger getPassengerByUserNameAndPassWord(String un, String pw) {
+    public Passenger getPassengerByUserNameAndPassWord(String userName, String password) {
+//        Passenger passenger;
+//        List<Passenger> passengers = passengerRepository.findAll();
+//        Iterator<Passenger> iterator = passengers.iterator();
+//
+//        while (iterator.hasNext())
+//        {
+//
+//        }
         return null;
     }
 }

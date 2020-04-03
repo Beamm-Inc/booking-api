@@ -17,4 +17,16 @@ public class LuggageAllowance {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "luggageid")
     private Integer luggageID;
+
+    @Column(name = "carryons")
+    private int carryOns;
+
+    @Column(name = "carryonweight")
+    private double carryOnWeight;
+
+    @Column(name = "checkedbags")
+    private int checkedBags;
+
+    @Column(name = "checkedbagweight")
+    private double checkedBagWeight;
 }

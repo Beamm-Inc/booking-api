@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface PassengerService {
     Page<Passenger> getAllPassengerPages(int pageNo);
-    List<Passenger> getAllPassenger();
+    List<Passenger> getAllPassengers();
     Passenger getPassengerById(Integer id);
     Passenger getPassengerByPassport(String passport);
     HttpStatus deletePassengerById(Integer id);

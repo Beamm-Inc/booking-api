@@ -27,7 +27,7 @@ public class AirportController {
     }
 
     @PostMapping
-    public ResponseEntity<Airport> saveNewPerson(@RequestBody @Valid Airport airport, BindingResult result, Principal principal) {
+    public ResponseEntity<Airport> saveNewAirport(@RequestBody @Valid Airport airport, BindingResult result, Principal principal) {
         if (result.hasErrors()) {
 
             return null;

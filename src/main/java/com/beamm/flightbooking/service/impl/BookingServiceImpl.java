@@ -1,6 +1,7 @@
 package com.beamm.flightbooking.service.impl;
 
 import com.beamm.flightbooking.model.Booking;
+import com.beamm.flightbooking.model.Passenger;
 import com.beamm.flightbooking.model.Trip;
 import com.beamm.flightbooking.repository.BookingRepository;
 import com.beamm.flightbooking.repository.TripRepository;
@@ -21,9 +22,10 @@ public class BookingServiceImpl implements BookingService {
     BookingRepository bookingRepository;
     @Autowired
     TripRepository tripRepository;
+
     @Override
     public Page<Booking> getAllBookingsPaged(int pageNo) {
-        return bookingRepository.findAll(PageRequest.of(pageNo,10));
+        return bookingRepository.findAll(PageRequest.of(pageNo, 10));
     }
 
     @Override
@@ -37,8 +39,8 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    @Transactional
-    public void deleteBookingById(Integer id) throws  Exception {
+    //@Transactional
+    public void deleteBookingById(Integer id) throws Exception {
         Optional<Booking> booking = bookingRepository.findById(id);
 
         if (booking.isPresent()) {
@@ -49,18 +51,18 @@ public class BookingServiceImpl implements BookingService {
 
     }
 
-    @Override
-    @Transactional
-    public void deleteBookingByTicketNumber(String ticketNumber) throws Exception {
-
-        Optional<Trip> trip = Optional.ofNullable(tripRepository.findByTicketNumber(ticketNumber));
-        if (trip.isPresent()) {
-            tripRepository.findByTicketNumber(ticketNumber);
-            HttpStatus.valueOf("Ticket deleted successfully.");
-        } else {
-            throw new Exception("No record exist for given ticket Number");
-        }
-    }
+//    @Override
+//    @Transactional
+//    public void deleteBookingByTicketNumber(String ticketNumber) throws Exception {
+//
+//        Optional<Trip> trip = Optional.ofNullable(tripRepository.findByTicketNumber(ticketNumber));
+//        if (trip.isPresent()) {
+//            tripRepository.findByTicketNumber(ticketNumber);
+//            HttpStatus.valueOf("Ticket deleted successfully.");
+//        } else {
+//            throw new Exception("No record exist for given ticket Number");
+//        }
+//    }
 
     @Override
     public Booking saveBooking(Booking booking) {
@@ -72,7 +74,7 @@ public class BookingServiceImpl implements BookingService {
         String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         StringBuilder builder = new StringBuilder();
         while (count-- != 0) {
-            int character = (int)(Math.random()*ALPHA_NUMERIC_STRING.length());
+            int character = (int) (Math.random() * ALPHA_NUMERIC_STRING.length());
             builder.append(ALPHA_NUMERIC_STRING.charAt(character));
         }
         return builder.toString();
@@ -82,4 +84,11 @@ public class BookingServiceImpl implements BookingService {
     public Booking getByBookingByBookingReference(String confirmationCode) {
         return bookingRepository.findByBookingReference(confirmationCode);
     }
+//
+//    @Override
+////    public Passenger addPasseneger(Passenger passenger) {
+////        //return bookingRepository.addPassenger(passenger);
+////        return  bookingRepository.addPassenger(passenger);
+////
+////    }
 }

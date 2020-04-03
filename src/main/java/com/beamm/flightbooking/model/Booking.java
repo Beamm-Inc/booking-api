@@ -28,8 +28,12 @@ public class Booking {
     private String luggageAllownace;
     @OneToOne(cascade = CascadeType.PERSIST)
     private Customer customer;
-    @OneToMany(cascade = CascadeType.PERSIST)
-    private List<Trip>trips;
+   // @OneToMany(cascade = CascadeType.PERSIST)
+    //private List<Trip>trips;
+    @ManyToOne (cascade = CascadeType.MERGE)
+    private Trip trips;
+//    @ManyToOne(cascade = CascadeType.PERSIST)
+//    private Passenger passenger;
     @OneToMany(cascade = CascadeType.PERSIST)
     private List<Passenger> passengers;
 

@@ -37,7 +37,7 @@ public class TripController {
     }
 
 
-    @GetMapping("/ticket")
+    @GetMapping("/ticket/{ticket}")
     public Trip getByTicketNumber(@PathVariable String ticket) {
         return tripService.getByTicketNumber(ticket);
     }

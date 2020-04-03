@@ -14,8 +14,6 @@ import javax.validation.constraints.Digits;
 @AllArgsConstructor
 
 public class Bookingdto {
-
-
     Customer customer;
     Passenger passenger;
     Trip trip;

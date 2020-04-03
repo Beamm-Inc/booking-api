@@ -18,7 +18,7 @@ public class Flight
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "flightid")
     private Integer flightID;
 
     @Column(name = "flightnumber")

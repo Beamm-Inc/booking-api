@@ -29,6 +29,17 @@ public class AirplaneController
         return airplaneService.getAllAirplanesPaged(pageNo);
     }
 
+    @GetMapping(value = {"/all"})
+    public ResponseEntity<List<Airplane>> getAllAirplanesList()
+    {
+        return new ResponseEntity<List<Airplane>>(airplaneService.getAllAirplanesList(), HttpStatus.OK);
+    }
+
+    @GetMapping(value = {"/{airplaneId}"})
+    public ResponseEntity<Airplane> getAirplaneById(@PathVariable Integer airplaneId) {
+        return new ResponseEntity<Airplane>(airplaneService.getAirplaneById(airplaneId), HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<Airplane> addAirplane(@RequestBody @Valid Airplane airplane, BindingResult result, Principal principal)
     {
@@ -41,7 +52,7 @@ public class AirplaneController
 
     @PostMapping(value = {"/edit"})
     public ResponseEntity<Airplane> UpdateAirplane(@Valid @ModelAttribute("airplane") Airplane airplane,
-                                 BindingResult bindingResult) {
+                                                   BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<Airplane>(null,new HttpHeaders(),HttpStatus.BAD_REQUEST);
         }

@@ -48,4 +48,14 @@ public class ScheduledFlight {
 
         passengers = new ArrayList<>(this.capacity);
     }
+
+    public Passenger addPassenger(Passenger passenger){
+        boolean isAdded = passengers.add(passenger);
+        return isAdded? passenger:null;
+    }
+
+    public List<Passenger> addPassenger(List<Passenger> passengers){
+        boolean isAdded = passengers.addAll(passengers);
+        return isAdded? passengers: null;
+    }
 }

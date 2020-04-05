@@ -1,6 +1,5 @@
 package com.beamm.flightbooking.controller;
 
-import com.beamm.flightbooking.model.Airplane;
 import com.beamm.flightbooking.model.Airport;
 import com.beamm.flightbooking.service.AirportService;
 import com.fasterxml.jackson.core.JsonProcessingException;

@@ -1,6 +1,7 @@
 package com.beamm.flightbooking.controller;
 
 import com.beamm.flightbooking.dto.Flightdto;
+import com.beamm.flightbooking.model.Airport;
 import com.beamm.flightbooking.model.Flight;
 import com.beamm.flightbooking.model.Flight;
 import com.beamm.flightbooking.service.AirplaneService;
@@ -43,14 +44,11 @@ public class FlightController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Flight addNewFlight(@Valid @ModelAttribute("flight") Flight flight,
-                               BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
+    public ResponseEntity<Flight> addNewFlight(@RequestBody @Valid Flight flight, BindingResult result, Principal principal) {
+        if (result.hasErrors()) {
             return null;
         }
-        flight = flightService.saveFlight(flight);
-        return flight;
+        return new ResponseEntity<Flight>(this.flightService.saveFlight(flight), HttpStatus.OK);
     }
 
     @PostMapping(value = {"/edit"})

@@ -8,6 +8,9 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class BootstrapData implements CommandLineRunner {
@@ -20,14 +23,18 @@ public class BootstrapData implements CommandLineRunner {
     private  final BookingService bookingService;
     private  final PersonService personService;
     private final CustomerService customerService;
+    private final FlightService flightService;
+    private final ScheduledFlightService scheduledFlightService;
 
-    public BootstrapData(AirportService airportService, AirplaneService airplaneService, TripService tripService, BookingService bookingService, PersonService personService, CustomerService customerService) {        
+    public BootstrapData(AirportService airportService, AirplaneService airplaneService, TripService tripService, BookingService bookingService, PersonService personService, CustomerService customerService, FlightService flightService, ScheduledFlightService scheduledFlightService) {
     this.airportService = airportService;
     this.airplaneService = airplaneService;
     this.tripService = tripService;
     this.bookingService = bookingService;
     this.personService = personService;
     this.customerService = customerService;
+    this.flightService = flightService;
+    this.scheduledFlightService = scheduledFlightService;
     }
 
     @Override
@@ -101,5 +108,11 @@ public class BootstrapData implements CommandLineRunner {
         //booking.setCustomer(customer);
         booking.setLuggageAllownace("2");
         bookingService.saveBooking(booking);
+
+        Flight flight = new Flight(1,"ET302",airport,airport,airplane,LocalDate.of(2020,10,10),LocalDate.of(2020,10,10), LocalTime.now(),LocalTime.now(),434.3,43434.0);
+        flightService.saveFlight(flight);
+
+        ScheduledFlight scheduledFlight = new ScheduledFlight(1, flight, airplane, 50, 50.0, LocalDate.of(2020, 10, 10), LocalDate.of(2020, 10, 10), new ArrayList<Passenger>());
+        scheduledFlightService.addScheduledFlight(scheduledFlight);
     }
 }

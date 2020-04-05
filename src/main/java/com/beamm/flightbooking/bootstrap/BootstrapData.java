@@ -47,14 +47,7 @@ public class BootstrapData implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-
-//        Trip trip = new Trip();
-//        trip.setTicketNumber("Eth345679");
-//        trip.setFlightClass(FlightClass.BUSINESS);
-//        trip.setSeat("40");
-//        tripService.saveTrip(trip);
-
-//        System.out.println("---->Loading Airplanes");
+        // Creating Airplanes
 
         Airplane airplane = new Airplane();
         airplane.setAirplaneModel("Ethiopian");
@@ -75,12 +68,14 @@ public class BootstrapData implements CommandLineRunner {
         airplane.setFirstClassSeats(0);
         airplaneService.saveAirplane(airplane);
 
+        Airplane airplane2 = airplane;
+
         System.out.println("Total Airplanes: ");
         System.out.println(airplaneService.getAllAirplanesList());
 
+        // Creating Airports
 
         Airport airport = new Airport();
-
         airport.setAirportCity("Addis Ababa");
         airport.setAirportCode("ADD");
         airport.setAirportName("Bole International Airport");
@@ -94,11 +89,15 @@ public class BootstrapData implements CommandLineRunner {
         airport.setAirportName("John F Kennedy International Airport");
         airportService.saveAirport(airport);
 
+        Airport airport2 = airport;
+
         airport = new Airport();
         airport.setAirportCity("Chicago");
         airport.setAirportCode("ORD");
         airport.setAirportName("Chicago O'Hare International Airport");
         airportService.saveAirport(airport);
+
+        Airport airport3 = airport;
 
         airport = new Airport();
         airport.setAirportCity("Beijing");
@@ -106,7 +105,9 @@ public class BootstrapData implements CommandLineRunner {
         airport.setAirportName("Beijing Capital International Airport");
         airportService.saveAirport(airport);
 
-        Airport airport2 = airport;
+        Airport airport4 = airport;
+
+        // Booking
 
         Address address = new Address();//34,"a",,"c","d","12");
         address.setCity("b");
@@ -144,27 +145,54 @@ public class BootstrapData implements CommandLineRunner {
         booking.setLuggageAllownace("2");
         bookingService.saveBooking(booking);
 
+        // Creating Flights
+
         Flight flight = new Flight(1,"ET302",airport1, airport2,
                 LocalDate.of(2020,10,10),LocalDate.of(2020,10,10),
                 LocalTime.now(),LocalTime.now(),434.3,43434.0);
         flightService.saveFlight(flight);
 
-        ScheduledFlight scheduledFlight1 = new ScheduledFlight(1, flight, airplane1, 50,
+        Flight flight1 = flight;
+
+        flight = new Flight(2,"ET555", airport2, airport1,
+            LocalDate.of(2020,10,15),LocalDate.of(2020,10,15),
+            LocalTime.now(), LocalTime.now(),434.3,43434.0);
+        flightService.saveFlight(flight);
+
+        Flight flight2 = flight;
+
+        // Creating Scheduled Flights
+
+        ScheduledFlight scheduledFlight = new ScheduledFlight(1, flight1, airplane1, 50,
                 50.0, LocalDate.of(2020, 10, 10),
                 LocalDate.of(2020, 10, 10), new ArrayList<Passenger>());
 
-        scheduledFlightService.addScheduledFlight(scheduledFlight1);
+        scheduledFlightService.addScheduledFlight(scheduledFlight);
 
-        ScheduledFlight scheduledFlight2 = new ScheduledFlight(2, flight, airplane1, 50,
+        ScheduledFlight scheduledFlight1 = scheduledFlight;
+
+        scheduledFlight = new ScheduledFlight(2, flight1, airplane1, 50,
                 50.0, LocalDate.of(2020, 10, 13),
                 LocalDate.of(2020, 10, 13), new ArrayList<Passenger>());
 
-        scheduledFlightService.addScheduledFlight(scheduledFlight2);
+        scheduledFlightService.addScheduledFlight(scheduledFlight);
 
-        ScheduledFlight scheduledFlight3 = new ScheduledFlight(3, flight, airplane1, 50,
+        ScheduledFlight scheduledFlight2 = scheduledFlight;
+
+        scheduledFlight = new ScheduledFlight(3, flight1, airplane1, 50,
                 50.0, LocalDate.of(2020, 10, 13),
                 LocalDate.of(2020, 10, 13), new ArrayList<Passenger>());
 
-        scheduledFlightService.addScheduledFlight(scheduledFlight3);
+        scheduledFlightService.addScheduledFlight(scheduledFlight);
+
+        ScheduledFlight scheduledFlight3 = scheduledFlight;
+
+        scheduledFlight = new ScheduledFlight(4, flight2, airplane2, 50,
+                50.0, LocalDate.of(2020, 10, 15),
+                LocalDate.of(2020, 10, 15), new ArrayList<Passenger>());
+
+        scheduledFlightService.addScheduledFlight(scheduledFlight);
+
+        ScheduledFlight scheduledFlight4 = scheduledFlight;
     }
 }

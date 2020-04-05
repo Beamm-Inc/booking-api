@@ -21,8 +21,11 @@ public interface ScheduledFlightRepository extends JpaRepository<ScheduledFlight
     ScheduledFlight getScheduledFlightByFlightNumber(String flightNumber);
     @Query("select u from ScheduledFlight u where u.flight.destination = ?1 and u.flight.origin =?1 and u.departureDate=?1")
     List<ScheduledFlight> searchScheduledFlightOneWay(String depatureCity, String arrivalCity, LocalDate departureDate);
-//    @Query("select u from ScheduledFlight u where u.flight.destination = ? 1 and u.flight.origin =?1 and u.departureDate=?1")
-//    List<ScheduledFlight> searchScheduledFlightRoundTrip(String depatureCity, String arrivalCity, LocalDate departureDate, LocalDate returnDate);
+////    @Query("select u from ScheduledFlight u where u.flight.destination = ? 1 and u.flight.origin =?1 and u.departureDate=?1")
+////    List<ScheduledFlight> searchScheduledFlightRoundTrip(String depatureCity, String arrivalCity, LocalDate departureDate, LocalDate returnDate);
+//
+//    Page<ScheduledFlight> findAllByFlightOriginAndFlightDestination(Airport depart, Airport arrival, Pageable pageable);
+//    Page<ScheduledFlight> findAllByFlightOrigin_FlightIDAndFlightDestination_FlightID(int departId, int arrivalId, Pageable pageable);
 
-    Page<ScheduledFlight> findByFlightOriginAndFlightDestination(Airport depart, Airport arrival, Pageable pageable);
+    Page<ScheduledFlight> findAllByFlightOriginAndFlightDestinationAndDepartureDate(Airport depart, Airport arrival, LocalDate departDate, Pageable pageable);
 }

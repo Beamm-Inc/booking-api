@@ -57,7 +57,6 @@ public class BootstrapData implements CommandLineRunner {
 //        System.out.println("---->Loading Airplanes");
 
         Airplane airplane = new Airplane();
-
         airplane.setAirplaneModel("Ethiopian");
         airplane.setAirplaneModel("777-200LR");
         airplane.setAirplaneSerialNumber("ET-ANN");
@@ -66,8 +65,11 @@ public class BootstrapData implements CommandLineRunner {
         airplane.setFirstClassSeats(0);
         airplaneService.saveAirplane(airplane);
 
+        Airplane airplane1 = airplane;
+
+        airplane = new Airplane();
         airplane.setAirplaneModel("A350-900 ");
-        airplane.setAirplaneSerialNumber("kcds");
+        airplane.setAirplaneSerialNumber("ET-KMR");
         airplane.setBusinessClassSeats(14);
         airplane.setEconomyClassSeats(73);
         airplane.setFirstClassSeats(0);
@@ -84,35 +86,28 @@ public class BootstrapData implements CommandLineRunner {
         airport.setAirportName("Bole International Airport");
         airportService.saveAirport(airport);
 
+        Airport airport1 = airport;
+
+        airport = new Airport();
         airport.setAirportCity("New York");
         airport.setAirportCode("JFK");
         airport.setAirportName("John F Kennedy International Airport");
         airportService.saveAirport(airport);
 
+        airport = new Airport();
         airport.setAirportCity("Chicago");
         airport.setAirportCode("ORD");
         airport.setAirportName("Chicago O'Hare International Airport");
         airportService.saveAirport(airport);
 
+        airport = new Airport();
         airport.setAirportCity("Beijing");
         airport.setAirportCode("PEK");
         airport.setAirportName("Beijing Capital International Airport");
         airportService.saveAirport(airport);
 
+        Airport airport2 = airport;
 
-
-
-
-        Booking booking = new Booking();
-
-       //customer.setPerson(person);
-       //customerService.saveCustomer(customer);
-        Trip trip = new Trip();
-        trip.setTicketNumber("Eth345679");
-        trip.setFlightClass(FlightClass.BUSINESS);
-        trip.setSeat("40");
-        tripService.saveTrip(trip);
-        booking.addTrip(trip);
         Address address = new Address();//34,"a",,"c","d","12");
         address.setCity("b");
         address.setCity("bh");
@@ -125,33 +120,22 @@ public class BootstrapData implements CommandLineRunner {
 
         personService.savePerson(person);
 
+        Booking booking = new Booking();
+
+        Trip trip = new Trip();
+        trip.setTicketNumber("Eth345679");
+        trip.setFlightClass(FlightClass.BUSINESS);
+        trip.setSeat("40");
+        tripService.saveTrip(trip);
+        booking.addTrip(trip);
+
         Passenger passenger = new Passenger();
         passenger.setPassportNumber("EP234");
         passenger.setPerson(person);
         passenger.addTrip(trip);
 
-
-//
-//        Person person = passenger.getPerson();
-//        person.setFirstName("abebe");
-//        person.setMiddleName("john");
-//        person.setLastName("aboo");
-//
-//        Address address = person.getAddress();//34,"a",,"c","d","12");
-//        address.setCity("b");
-//        address.setCity("bh");
-//        addressService.saveAddress(address);
-//        personService.savePerson(person);
-//
        passengerService.savePassenger(passenger);
-//        List<Trip> pasTrips = passenger.getTrips();
-//        pasTrips.add(trip);
-//        passenger.addTrip(trip);
 
-
-//        System.out.println("---->Created passenger");
-
-        //booking.setTrips(trip);
         booking.setPrice(123.56);
         booking.addPasseneger(passenger);
         booking.setDateTimeOfBooking(LocalDateTime.now());
@@ -160,10 +144,27 @@ public class BootstrapData implements CommandLineRunner {
         booking.setLuggageAllownace("2");
         bookingService.saveBooking(booking);
 
-        Flight flight = new Flight(1,"ET302",airport,airport, LocalDate.of(2020,10,10),LocalDate.of(2020,10,10), LocalTime.now(),LocalTime.now(),434.3,43434.0);
+        Flight flight = new Flight(1,"ET302",airport1, airport2,
+                LocalDate.of(2020,10,10),LocalDate.of(2020,10,10),
+                LocalTime.now(),LocalTime.now(),434.3,43434.0);
         flightService.saveFlight(flight);
 
-        ScheduledFlight scheduledFlight = new ScheduledFlight(1, flight, airplane, 50, 50.0, LocalDate.of(2020, 10, 10), LocalDate.of(2020, 10, 10), new ArrayList<Passenger>());
-        scheduledFlightService.addScheduledFlight(scheduledFlight);
+        ScheduledFlight scheduledFlight1 = new ScheduledFlight(1, flight, airplane1, 50,
+                50.0, LocalDate.of(2020, 10, 10),
+                LocalDate.of(2020, 10, 10), new ArrayList<Passenger>());
+
+        scheduledFlightService.addScheduledFlight(scheduledFlight1);
+
+        ScheduledFlight scheduledFlight2 = new ScheduledFlight(2, flight, airplane1, 50,
+                50.0, LocalDate.of(2020, 10, 13),
+                LocalDate.of(2020, 10, 13), new ArrayList<Passenger>());
+
+        scheduledFlightService.addScheduledFlight(scheduledFlight2);
+
+        ScheduledFlight scheduledFlight3 = new ScheduledFlight(3, flight, airplane1, 50,
+                50.0, LocalDate.of(2020, 10, 13),
+                LocalDate.of(2020, 10, 13), new ArrayList<Passenger>());
+
+        scheduledFlightService.addScheduledFlight(scheduledFlight3);
     }
 }

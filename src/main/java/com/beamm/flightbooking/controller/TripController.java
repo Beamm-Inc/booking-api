@@ -42,7 +42,7 @@ public class TripController {
         return tripService.getByTicketNumber(ticket);
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public List<Trip> getAllTrips() {
         return tripService.getAllTripList();
     }

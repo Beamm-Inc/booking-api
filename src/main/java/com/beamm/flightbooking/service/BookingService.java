@@ -14,7 +14,7 @@ public interface BookingService {
    // void deleteBookingByTicketNumber(String ticketNumber) throws  Exception;
     Booking saveBooking(Booking booking);
     String randomAlphaNumericBookingRef(int count);
-    Booking getByBookingByBookingReference(String confirmationCode);
+    Booking getByBookingReference(String confirmationCode);
     //Passenger addPasseneger(Passenger passenger);
 
 }

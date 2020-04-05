@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TripRepository extends JpaRepository<Trip,Integer> {
-    @Query("select u from Trip u where u.ticketNumber = ?1")
+    //@Query("select u from Trip u where u.ticketNumber = ?1")
     Trip findByTicketNumber(String ticket);
 
     Trip deleteByTicketNumber(String ticketNumber);

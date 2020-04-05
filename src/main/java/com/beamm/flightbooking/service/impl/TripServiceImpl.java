@@ -29,6 +29,8 @@ public class TripServiceImpl implements TripService {
         return tripRepository.save(trip);
     }
 
+
+
     @Override
     public Trip getByTicketNumber(String ticketNumber) {
         return tripRepository.findByTicketNumber(ticketNumber);
@@ -63,4 +65,20 @@ public class TripServiceImpl implements TripService {
                 throw new Exception("No employee record exist for given id");
             }
         }
+
+    @Override
+    public String randomTicketNumGen(int count) {
+        String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        StringBuilder builder = new StringBuilder();
+        while (count-- != 0) {
+            int character = (int)(Math.random()*ALPHA_NUMERIC_STRING.length());
+            builder.append(ALPHA_NUMERIC_STRING.charAt(character));
+        }
+        return builder.toString();
+
+
+
+
     }
+
+}

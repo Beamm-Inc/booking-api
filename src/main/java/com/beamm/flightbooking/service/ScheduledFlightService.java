@@ -1,8 +1,11 @@
 package com.beamm.flightbooking.service;
 
+import com.beamm.flightbooking.model.Airport;
 import com.beamm.flightbooking.model.ScheduledFlight;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -17,4 +20,5 @@ public interface ScheduledFlightService {
     ScheduledFlight addScheduledFlight(ScheduledFlight scheduledFlight);
     List<ScheduledFlight> searchScheduledFlightOneWay(String depatureCity, String arrivalCity, LocalDate departureDate);
     List<List<ScheduledFlight>> searchScheduledFlightRoundTrip(String depatureCity, String arrivalCity, LocalDate departureDate, LocalDate returnDate);
+    Page<ScheduledFlight> findByFlightOriginAndFlightDestination(Airport depart, Airport arrival, int pageNo);
 }

@@ -29,17 +29,11 @@ public class PersonController {
 
 
     @PostMapping
-  /*  public Person saveNewPerson(@Valid @ModelAttribute("person") Person person,
-                                BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return null;
-        }
-        return personService.savePerson(person);
-    }*/
+
         public ResponseEntity<Person> saveNewPerson(@RequestBody @Valid Person person, BindingResult result, Principal principal)
 			 {
             return new ResponseEntity<>(this.personService.savePerson(person), HttpStatus.OK);
         }
-    //return new ResponseEntity<>(this.service.createEmployee(employeeDTO), HttpStatus.OK)
+
 }
 

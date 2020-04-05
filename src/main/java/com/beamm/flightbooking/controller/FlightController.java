@@ -44,9 +44,11 @@ public class FlightController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Flight> addNewFlight(@RequestBody @Valid Flight flight, BindingResult result, Principal principal) {
         if (result.hasErrors()) {
             return null;
+
         }
         return new ResponseEntity<Flight>(this.flightService.saveFlight(flight), HttpStatus.OK);
     }

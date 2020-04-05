@@ -30,8 +30,6 @@ public class Flight
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Airport destination;
 
-    @ManyToOne(cascade = CascadeType.PERSIST) // Many flights can have the same airplane multiplexed by time.
-    private Airplane airplane;
 
     @Column(name = "departuredate")
     @DateTimeFormat(pattern = "yyyy-MM-dd")

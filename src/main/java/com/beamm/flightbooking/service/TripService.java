@@ -12,4 +12,5 @@ public interface TripService {
     Trip getByTicketNumber(String  ticketNumber);
     List<Trip> getAllTripList();
     void deleteByTicketNumber(String ticketNumber) throws Exception;
+    String randomTicketNumGen(int count);
 }

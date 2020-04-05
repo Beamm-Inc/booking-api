@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -20,7 +22,16 @@ public class Passenger {
     @Column(name="passportnumber")
     private String passportNumber;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
-    private  Person person;
+    @OneToOne(cascade = CascadeType.MERGE)
+    private  Person person = new Person();
+    @OneToMany(cascade = CascadeType.MERGE)
+    private List<Trip>trips = new ArrayList<>();
+
+    public Trip addTrip(Trip trip) {
+
+        boolean isAdded = trips.add(trip);
+
+        return isAdded?trip:null;
+    }
 
 }

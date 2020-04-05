@@ -25,8 +25,14 @@ public class BootstrapData implements CommandLineRunner {
     private final CustomerService customerService;
     private final FlightService flightService;
     private final ScheduledFlightService scheduledFlightService;
+    private  final  AddressService addressService;
+    private  final  PassengerService passengerService;
 
-    public BootstrapData(AirportService airportService, AirplaneService airplaneService, TripService tripService, BookingService bookingService, PersonService personService, CustomerService customerService, FlightService flightService, ScheduledFlightService scheduledFlightService) {
+    public BootstrapData(AirportService airportService, AirplaneService airplaneService,
+                         TripService tripService, BookingService bookingService, PersonService personService,
+                         CustomerService customerService, FlightService flightService,
+                         ScheduledFlightService scheduledFlightService,AddressService
+                                 addressService, PassengerService passengerService) {
     this.airportService = airportService;
     this.airplaneService = airplaneService;
     this.tripService = tripService;
@@ -35,12 +41,20 @@ public class BootstrapData implements CommandLineRunner {
     this.customerService = customerService;
     this.flightService = flightService;
     this.scheduledFlightService = scheduledFlightService;
+    this.addressService = addressService;
+    this.passengerService = passengerService;
     }
 
     @Override
     public void run(String... args) throws Exception {
 
-        System.out.println("Loading Airplanes");
+//        Trip trip = new Trip();
+//        trip.setTicketNumber("Eth345679");
+//        trip.setFlightClass(FlightClass.BUSINESS);
+//        trip.setSeat("40");
+//        tripService.saveTrip(trip);
+
+//        System.out.println("---->Loading Airplanes");
 
         Airplane airplane = new Airplane();
 
@@ -85,13 +99,12 @@ public class BootstrapData implements CommandLineRunner {
         airport.setAirportName("Beijing Capital International Airport");
         airportService.saveAirport(airport);
 
-        Person person =new Person();
-        person.setFirstName("abebe");
-        person.setMiddleName("john");
-        person.setLastName("aboo");
-        personService.savePerson(person);
 
-       Customer customer = new Customer();
+
+
+
+        Booking booking = new Booking();
+
        //customer.setPerson(person);
        //customerService.saveCustomer(customer);
         Trip trip = new Trip();
@@ -99,17 +112,55 @@ public class BootstrapData implements CommandLineRunner {
         trip.setFlightClass(FlightClass.BUSINESS);
         trip.setSeat("40");
         tripService.saveTrip(trip);
+        booking.addTrip(trip);
+        Address address = new Address();//34,"a",,"c","d","12");
+        address.setCity("b");
+        address.setCity("bh");
+        addressService.saveAddress(address);
+        Person person =new Person();
+        person.setFirstName("abebe");
+        person.setMiddleName("john");
+        person.setLastName("aboo");
+        person.setAddress(address);
 
-        Booking booking = new Booking();
-        booking.setTrips(trip);
+        personService.savePerson(person);
+
+        Passenger passenger = new Passenger();
+        passenger.setPassportNumber("EP234");
+        passenger.setPerson(person);
+        passenger.addTrip(trip);
+
+
+//
+//        Person person = passenger.getPerson();
+//        person.setFirstName("abebe");
+//        person.setMiddleName("john");
+//        person.setLastName("aboo");
+//
+//        Address address = person.getAddress();//34,"a",,"c","d","12");
+//        address.setCity("b");
+//        address.setCity("bh");
+//        addressService.saveAddress(address);
+//        personService.savePerson(person);
+//
+       passengerService.savePassenger(passenger);
+//        List<Trip> pasTrips = passenger.getTrips();
+//        pasTrips.add(trip);
+//        passenger.addTrip(trip);
+
+
+//        System.out.println("---->Created passenger");
+
+        //booking.setTrips(trip);
         booking.setPrice(123.56);
+        booking.addPasseneger(passenger);
         booking.setDateTimeOfBooking(LocalDateTime.now());
         booking.setBookingReference(bookingService.randomAlphaNumericBookingRef(12));
         //booking.setCustomer(customer);
         booking.setLuggageAllownace("2");
         bookingService.saveBooking(booking);
 
-        Flight flight = new Flight(1,"ET302",airport,airport,airplane,LocalDate.of(2020,10,10),LocalDate.of(2020,10,10), LocalTime.now(),LocalTime.now(),434.3,43434.0);
+        Flight flight = new Flight(1,"ET302",airport,airport, LocalDate.of(2020,10,10),LocalDate.of(2020,10,10), LocalTime.now(),LocalTime.now(),434.3,43434.0);
         flightService.saveFlight(flight);
 
         ScheduledFlight scheduledFlight = new ScheduledFlight(1, flight, airplane, 50, 50.0, LocalDate.of(2020, 10, 10), LocalDate.of(2020, 10, 10), new ArrayList<Passenger>());

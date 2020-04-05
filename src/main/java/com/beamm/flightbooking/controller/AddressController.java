@@ -2,8 +2,10 @@ package com.beamm.flightbooking.controller;
 
 
 import com.beamm.flightbooking.model.Address;
+import com.beamm.flightbooking.model.Airplane;
 import com.beamm.flightbooking.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -20,9 +22,9 @@ public class AddressController {
 
     public static final String BASE_URL = "/api/v1/address";
 
-    @GetMapping( value ="/")
-    public HttpStatus getPerson()  {
-        return HttpStatus.FORBIDDEN;
+    @GetMapping
+    public ResponseEntity getAddress()  {
+        return new ResponseEntity(null,new HttpHeaders(),HttpStatus.FORBIDDEN);
     }
     @GetMapping("/{id}")
     public Address getAddressById(@PathVariable Integer id) {
@@ -31,7 +33,7 @@ public class AddressController {
 
 
     @PostMapping
-    public ResponseEntity<Address> saveNewPerson(@RequestBody @Valid Address address, BindingResult result, Principal principal)
+    public ResponseEntity<Address> saveNewAddress(@RequestBody @Valid Address address, BindingResult result, Principal principal)
     {
         return new ResponseEntity<>(this.addressService.saveAddress(address), HttpStatus.OK);
     }

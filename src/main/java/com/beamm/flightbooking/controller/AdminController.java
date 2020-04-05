@@ -14,7 +14,7 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping(AdminController.BASE_URL)
 public class AdminController {
    @Autowired

@@ -3,9 +3,11 @@ package com.beamm.flightbooking.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -30,11 +32,25 @@ public class Booking {
     private Customer customer;
    // @OneToMany(cascade = CascadeType.PERSIST)
     //private List<Trip>trips;
-    @ManyToOne (cascade = CascadeType.MERGE)
-    private Trip trips;
+    @OneToMany (cascade = CascadeType.MERGE)
+    private List<Trip> trips = new ArrayList<>();
 //    @ManyToOne(cascade = CascadeType.PERSIST)
 //    private Passenger passenger;
-    @OneToMany(cascade = CascadeType.PERSIST)
-    private List<Passenger> passengers;
+    @OneToMany(cascade = CascadeType.MERGE)
+    private List<Passenger> passengers =new ArrayList<>();
+
+    public Passenger addPasseneger(Passenger passenger) {
+
+        boolean isAdded = passengers.add(passenger);
+
+        return isAdded?passenger:null;
+    }
+
+    public Trip addTrip(Trip trip) {
+
+        boolean isAdded = trips.add(trip);
+
+        return isAdded?trip:null;
+    }
 
 }

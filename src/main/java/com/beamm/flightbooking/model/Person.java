@@ -36,6 +36,6 @@ public class Person {
     @Column(name = "email")
     private String email;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    private Address address;
+    @ManyToOne(cascade = CascadeType.MERGE)
+    private Address address = new Address();
 }

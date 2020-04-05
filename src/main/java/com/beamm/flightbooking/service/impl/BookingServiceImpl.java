@@ -81,14 +81,12 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public Booking getByBookingByBookingReference(String confirmationCode) {
+    public Booking getByBookingReference(String confirmationCode) {
         return bookingRepository.findByBookingReference(confirmationCode);
     }
-//
+
 //    @Override
-////    public Passenger addPasseneger(Passenger passenger) {
-////        //return bookingRepository.addPassenger(passenger);
-////        return  bookingRepository.addPassenger(passenger);
-////
-////    }
+//    public Passenger addPasseneger(Passenger passenger) {
+//        return bookingRepository.addPassenger(passenger);
+//}
 }

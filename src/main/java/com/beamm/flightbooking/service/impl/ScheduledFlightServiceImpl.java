@@ -1,13 +1,17 @@
 package com.beamm.flightbooking.service.impl;
 
+import com.beamm.flightbooking.model.Airport;
 import com.beamm.flightbooking.model.Passenger;
 import com.beamm.flightbooking.model.ScheduledFlight;
+import com.beamm.flightbooking.repository.PassengerRepository;
 import com.beamm.flightbooking.repository.ScheduledFlightRepository;
 import com.beamm.flightbooking.service.ScheduledFlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -19,6 +23,8 @@ import java.util.List;
 public class ScheduledFlightServiceImpl implements ScheduledFlightService {
     @Autowired
     ScheduledFlightRepository scheduledFlightRepository;
+    @Autowired
+    PassengerRepository passengerRepository;
 
     @Override
     public Page<ScheduledFlight> getAllScheduledFlightPages(int pageNo) {
@@ -99,6 +105,11 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 
     @Override
     public ScheduledFlight addScheduledFlight(ScheduledFlight scheduledFlight) {
+       Iterator<Passenger> iterator = scheduledFlight.getPassengers().iterator();
+       while(iterator.hasNext()){
+           passengerRepository.save(iterator.next());
+       }
+
         return scheduledFlightRepository.save(scheduledFlight);
     }
 
@@ -122,5 +133,10 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
         returnFlights.add(arrivalFlights);
 
         return returnFlights;
+    }
+
+    @Override
+    public Page<ScheduledFlight> findByFlightOriginAndFlightDestination(Airport depart, Airport arrival, int pageNo) {
+        return scheduledFlightRepository.findByFlightOriginAndFlightDestination(depart, arrival,PageRequest.of(pageNo,20));
     }
 }

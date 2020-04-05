@@ -1,8 +1,6 @@
 package com.beamm.flightbooking.dto;
 
-import com.beamm.flightbooking.model.Customer;
-import com.beamm.flightbooking.model.Passenger;
-import com.beamm.flightbooking.model.Trip;
+import com.beamm.flightbooking.model.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +12,8 @@ import javax.validation.constraints.Digits;
 @AllArgsConstructor
 
 public class Bookingdto {
+    Address address;
+    Person person;
     Customer customer;
     Passenger passenger;
     Trip trip;

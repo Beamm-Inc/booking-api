@@ -5,18 +5,23 @@ import com.beamm.flightbooking.model.*;
 import com.beamm.flightbooking.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @RestController
 @RequestMapping(BookingController.BASE_URL)
 public class BookingController {
-
+    ModelMap model = new ModelMap();
     @Autowired
     BookingService bookingService;
     @Autowired
@@ -27,24 +32,50 @@ public class BookingController {
     PassengerService passengerService;
     @Autowired
     CustomerService customerService;
+    @Autowired
+    AddressService addressService;
+    @Autowired
+    ScheduledFlightService scheduledFlightService;
+    @Autowired
+    PersonService personService;
+
     public static final String BASE_URL = "/api/v1/booking";
 
-    @GetMapping("flight/search")
-    public String searchbooking() {
-        return "flight/search";
+    @GetMapping("/allbooking")
+    public List<Booking> allBooking() {
+        return bookingService.getAllBooking();
     }
 
 
-    @PostMapping("flight/search{bookingrefrence}")
-    public ModelAndView searchBookingSubmitBtn(@RequestParam String bookingReference) {
-        ModelAndView mav = new ModelAndView();
-        Booking booking = bookingService.getByBookingByBookingReference(bookingReference);
-        mav.addObject("booking", booking);
-        System.out.println(bookingReference);
-        mav.setViewName("flight/search");
+//    @GetMapping("/search")
+//    public String searchbooking() {
+//        return "flight/search";
+//    }
 
-        return mav;
+     //findBooking By booking refernce
+    @RequestMapping(value = "/search/{bookingReference}", method = RequestMethod.GET)
+    @ResponseBody
+
+     public ResponseEntity<Booking> getbookingByReference(@PathVariable("bookingReference") String bookingReference)  {
+        Booking booking = bookingService.getByBookingReference(bookingReference);
+        if (booking == null) {
+            return  new ResponseEntity("Booking with given "+ bookingReference +"not found",HttpStatus.NOT_FOUND);
+
+        }
+        return new ResponseEntity(booking, HttpStatus.OK);
     }
+
+
+//    @PostMapping("flight/search{bookingReference}")
+//    public ModelAndView searchBookingSubmitBtn(@RequestParam String bookingReference) {
+//        ModelAndView mav = new ModelAndView();
+//        Booking booking = bookingService.getByBookingReference(bookingReference);
+//        mav.addObject("booking", booking);
+//        System.out.println(bookingReference);
+//        mav.setViewName("flight/search");
+//
+//        return mav;
+//    }
 
     @GetMapping("/flight/new/{flightId}/{passenger}/{trip}/{price}")
     public String getBookingForm(@PathVariable Integer flightId, @PathVariable Passenger passenger, @PathVariable Trip trip,
@@ -78,33 +109,59 @@ public class BookingController {
 //
 
 
-    @PostMapping("/flight/successbooking")
-    public String userNewBookingForm(@ModelAttribute("bookingdto") Bookingdto bookingdto,
-                                     Model model, BindingResult bindingResult) {
 
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("bookingdto", bookingdto);
+    @RequestMapping(value = "/flight/reservation/",
+            method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<Booking> makeBooking( @RequestBody Bookingdto bookingdto,
+                                                  BindingResult bindingResult,
 
-            return "flight/new";
-        }
+                                                  HttpServletResponse response)
+    {
 
-        Booking booking = new Booking();
-        Passenger passenger = bookingdto.getPassenger();
-        //Customer customer = new Customer();
-        //passenger.setPassportNumber(bookingdto.getPassenger().getPassportNumber());
-        //passenger.setPerson(bookingdto.getCustomer().getPerson());
-        //bookingService.addPasseneger(passenger);
-        booking.setTrips(bookingdto.getTrip());
-        booking.setBookingReference(bookingService.randomAlphaNumericBookingRef(14));
+        System.out.println("------>" + bookingdto);
+                     int flightId = 1;
+    // ScheduledFlight scheduledFlight = scheduledFlightService.getScheduledFlightById(flightId);
+             //if(scheduledFlight != null){
+            // Trip trip  =tripService.saveTrip(bookingdto.getTrip());
+             //Address address =addressService.saveAddress(bookingdto.getAddress());
+             // Person person = personService.savePerson(bookingdto.getPerson());
+              Passenger passenger =new Passenger();
+               //passenger.setPerson(person);
+              // passenger.addTrip(trip);
+            // passengerService.savePassenger(bookingdto.getPassenger());
+                 Booking booking = new Booking();
+                 //booking.addPasseneger(passenger);
+                 booking.setBookingReference(bookingService.randomAlphaNumericBookingRef(14));
 
-
-        booking = bookingService.saveBooking(booking);
-
-
-        return "flight/successbooking";
-
-
+                 return new ResponseEntity<>(this.bookingService.saveBooking(booking), HttpStatus.OK);
+             //}
+             //return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
+
+//    @PostMapping("/flight/bookstart")
+//    public String getBookingForm( @ModelAttribute("bookingdto") Bookingdto bookingdto,
+//                                  Model model, BindingResult bindingResult) {
+//
+//        if (bindingResult.hasErrors()) {
+//            model.addAttribute("bookingdto", bookingdto);
+//
+//            return "flight/new";
+//        }
+//
+//        System.out.println("------>" + bookingdto);
+//
+//        Booking booking = new Booking();
+//        Passenger passenger =  new Passenger();
+//        Trip trip = new Trip();
+//
+//        passenger.addTrip(bookingdto.getTrip());
+//        booking.addPasseneger(passenger);
+//        booking.setBookingReference(bookingService.randomAlphaNumericBookingRef(14));
+//        booking = bookingService.saveBooking(booking);
+//
+//        return "flight/successbooking";
+//    }
 
 
 }

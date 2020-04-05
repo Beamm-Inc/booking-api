@@ -8,6 +8,7 @@ import com.beamm.flightbooking.service.ScheduledFlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -16,7 +17,11 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.function.Function;
 
 @RestController
 @RequestMapping(ScheduledFlightController.BASE_URL)
@@ -87,16 +92,31 @@ public class ScheduledFlightController {
         return scheduledFlightService.searchScheduledFlightOneWay(depart, arrival, departDate, pageNo);
     }
 
-    @PostMapping( value ={"/search/rounddtrip"})///{fromId}/{toId}"
-    public Page<ScheduledFlight> searchScheduledFlightRoundTrip(@RequestBody @Valid Flightdto flightdto, BindingResult result,
+    @PostMapping( value ={"/search/roundtrip"})///{fromId}/{toId}"
+    public HashMap<String, Page<ScheduledFlight>>/*List<Page<ScheduledFlight>>*/ searchScheduledFlightRoundTrip(@RequestBody @Valid Flightdto flightdto, BindingResult result,
                                                        Principal principal,@RequestParam(defaultValue = "0") int pageNo)
     {
         Airport depart = airportRepository.findById(Integer.parseInt(flightdto.getFrom())).orElse(null);
         Airport arrival = airportRepository.findById(Integer.parseInt(flightdto.getTo())).orElse(null);
         LocalDate departDate = flightdto.getDateOfDeparture();
-//        return scheduledFlightService.findAllByFlightOriginAndFlightDestination(depart, arrival, pageNo);
-//        return scheduledFlightService.findAllByFlightOrigin_FlightIDAndFlightDestination_FlightID(Integer.parseInt(flightdto.getFrom()), Integer.parseInt(flightdto.getTo()), pageNo);
-//        return scheduledFlightService.findAllByFlightOriginAndFlightDestinationAndDepartureDate(depart, arrival, departDate, pageNo);
-        return scheduledFlightService.searchScheduledFlightOneWay(depart, arrival, departDate, pageNo);
+        LocalDate returnDate = flightdto.getDateOfReturn();
+
+        Page<ScheduledFlight> departFlights = scheduledFlightService.searchScheduledFlightOneWay(depart, arrival, departDate, pageNo);
+        Page<ScheduledFlight> returnFlights = scheduledFlightService.searchScheduledFlightOneWay(arrival, depart, returnDate, pageNo);
+
+//        Page<List<ScheduledFlight>> roundTrip = new Page<List<ScheduledFlight>>() {
+//        }
+
+//        List<Page<ScheduledFlight>> roundTrip = new ArrayList<>();
+//        roundTrip.add(departFlights);
+//        roundTrip.add(returnFlights);
+//
+//        return roundTrip;
+
+        HashMap<String, Page<ScheduledFlight>> roundTrip= new HashMap<>();
+        roundTrip.put("depart", departFlights);
+        roundTrip.put("return", returnFlights);
+
+        return roundTrip;
     }
 }

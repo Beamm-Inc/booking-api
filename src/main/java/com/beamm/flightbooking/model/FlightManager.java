@@ -19,6 +19,7 @@ public class FlightManager extends Role{
     @Column(name = "flightmanagerid")
     private Integer flightmanagerID;
 
+    // TODO: Connect it with Security Module
     @Override
     public boolean login(String userName, String password) {
         return false;

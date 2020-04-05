@@ -1,7 +1,6 @@
 package com.beamm.flightbooking.service.impl;
 
 import com.beamm.flightbooking.model.Admin;
-import com.beamm.flightbooking.model.ScheduledFlight;
 import com.beamm.flightbooking.repository.AdminRepository;
 import com.beamm.flightbooking.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;

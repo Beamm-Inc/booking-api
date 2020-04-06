@@ -6,21 +6,22 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Digits;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 
 public class Bookingdto {
-    Address address;
+    Address address = new Address();
     Person person;
-    Customer customer;
-    Passenger passenger;
+    Integer flghtid;
+    List<Passenger> passengers;
     Trip trip;
     private Double price;
     private String luggageAllowance;
 }
-    //private FlightClass flightClass;
+
 
 
 

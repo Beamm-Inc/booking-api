@@ -5,6 +5,7 @@ import com.beamm.flightbooking.model.Passenger;
 import com.beamm.flightbooking.repository.AddressRepository;
 import com.beamm.flightbooking.repository.PassengerRepository;
 import com.beamm.flightbooking.repository.PersonRepository;
+import com.beamm.flightbooking.repository.TripRepository;
 import com.beamm.flightbooking.service.PassengerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,7 +26,8 @@ public class PassengerServiceImpl implements PassengerService {
 
     @Autowired
     PersonRepository personRepository;
-
+@Autowired
+    TripRepository tripRepository;
     @Override
     public Page<Passenger> getAllPassengerPages(int pageNo) {
         return passengerRepository.findAll(PageRequest.of(pageNo,20));
@@ -74,6 +76,7 @@ public class PassengerServiceImpl implements PassengerService {
     public Passenger savePassenger(Passenger passenger) {
         addressRepository.save(passenger.getPerson().getAddress());
         personRepository.save(passenger.getPerson());
+        tripRepository.saveAll(passenger.getTrips());
         return passengerRepository.save(passenger);
     }
 

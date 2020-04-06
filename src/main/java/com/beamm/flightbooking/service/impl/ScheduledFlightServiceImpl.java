@@ -47,26 +47,28 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
     }
 
     @Override
-    public HttpStatus removeScheduledFlightById(Integer id) {
-        try{
+    public ResponseEntity<ScheduledFlight> removeScheduledFlightById(Integer id) {
+        ScheduledFlight scheduledFlight = scheduledFlightRepository.findById(id).orElse(null);
+
+        if(scheduledFlight != null) {
             scheduledFlightRepository.deleteById(id);
-            return HttpStatus.valueOf("Flight successfully deleted.");
+            return new ResponseEntity<ScheduledFlight>(scheduledFlight, HttpStatus.OK);
         }
-        catch(Exception  ex){
-            return HttpStatus.FORBIDDEN;
+        else{
+            return new ResponseEntity<ScheduledFlight>(scheduledFlight, HttpStatus.NOT_FOUND);
         }
     }
 
     @Override
-    public HttpStatus removeScheduledFlightByFlightNumber(String flightNumber) {
+    public ResponseEntity<ScheduledFlight> removeScheduledFlightByFlightNumber(String flightNumber) {
         ScheduledFlight scheduledFlight = scheduledFlightRepository.removeScheduledFlightByFlightNumber(flightNumber);
 
         if(scheduledFlight == null)
         {
-            return HttpStatus.valueOf("Sleleted the scheduled flight successfully.");
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
         else {
-            return HttpStatus.valueOf("No such flight record found.");
+            return new ResponseEntity<ScheduledFlight>(scheduledFlightRepository.removeScheduledFlightByFlightNumber(flightNumber), HttpStatus.OK);
         }
     }
 
@@ -80,55 +82,8 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
         return scheduledFlightRepository.save(scheduledFlight);
     }
 
-//    @Override
-//    public List<ScheduledFlight> searchScheduledFlightOneWay(String depatureCity, String arrivalCity, LocalDate departureDate) {
-//        return scheduledFlightRepository.searchScheduledFlightOneWay(depatureCity, arrivalCity, departureDate);
-//    }
-//
-//    @Override
-//    public List<List<ScheduledFlight>> searchScheduledFlightRoundTrip(String depatureCity, String arrivalCity, LocalDate departureDate, LocalDate returnDate) {
-//        List<List<ScheduledFlight>> returnFlights = new ArrayList<>();
-//
-//        // Search departure flights
-//        List<ScheduledFlight> departureFlights = new ArrayList<>();
-//        departureFlights = scheduledFlightRepository.searchScheduledFlightOneWay(depatureCity, arrivalCity, departureDate);
-//        returnFlights.add(departureFlights);
-//
-//        // Search arrival flights
-//        List<ScheduledFlight> arrivalFlights = new ArrayList<>();
-//        arrivalFlights = scheduledFlightRepository.searchScheduledFlightOneWay(arrivalCity, depatureCity, returnDate);
-//        returnFlights.add(arrivalFlights);
-//
-//        return returnFlights;
-//    }
-
-//    @Override
-//    public Page<ScheduledFlight> findAllByFlightOriginAndFlightDestination(Airport depart, Airport arrival, int pageNo) {
-//        return scheduledFlightRepository.findAllByFlightOriginAndFlightDestination(depart, arrival,PageRequest.of(pageNo,20));
-//    }
-//
-//    @Override
-//    public Page<ScheduledFlight> findAllByFlightOrigin_FlightIDAndFlightDestination_FlightID(int depart, int arrival, int pageNo) {
-//        return scheduledFlightRepository.findAllByFlightOrigin_FlightIDAndFlightDestination_FlightID(depart, arrival,PageRequest.of(pageNo,20));
-//    }
-//
-//    @Override
-//    public Page<ScheduledFlight> searchScheduledFlightOneWay(String depatureCity, String arrivalCity, LocalDate departureDate, int pageNo) {
-//        return null;
-//    }
-//
-//    @Override
-//    public Page<ScheduledFlight> searchScheduledFlightRoundTrip(String depatureCity, String arrivalCity, LocalDate departureDate, LocalDate returnDate, int pageNo) {
-//        return null;
-//    }
-//
-//    @Override
-//    public Page<ScheduledFlight> findAllByFlightOriginAndFlightDestinationAndDepartureDate(Airport depart, Airport arrival, LocalDate departDate, int pageNo) {
-//        return scheduledFlightRepository.findAllByFlightOriginAndFlightDestinationAndDepartureDate(depart, arrival, departDate, PageRequest.of(pageNo, 20));
-//    }
-
     @Override
-    public Page<ScheduledFlight> searchScheduledFlightOneWay(Airport depart, Airport arrival, LocalDate departDate, int pageNo) {
-        return scheduledFlightRepository.findAllByFlightOriginAndFlightDestinationAndDepartureDate(depart, arrival, departDate, PageRequest.of(pageNo, 20));
+    public Page<ScheduledFlight> searchScheduledFlightOneWay(int departId, int arrivalId, LocalDate departDate, int pageNo) {
+        return scheduledFlightRepository.findByFlightOriginAirportIDAndFlightDestinationAirportIDAndDepartureDate(departId, arrivalId, departDate, PageRequest.of(pageNo, 20));
     }
 }

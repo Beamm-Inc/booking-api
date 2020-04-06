@@ -3,6 +3,7 @@ package com.beamm.flightbooking.controller;
 import com.beamm.flightbooking.model.Person;
 import com.beamm.flightbooking.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -19,9 +20,9 @@ public class PersonController {
 
     public static final String BASE_URL = "/api/v1/person";
 
-    @GetMapping( value ="/")
-    public HttpStatus getPerson()  {
-        return HttpStatus.FORBIDDEN;
+    @GetMapping
+    public ResponseEntity getPerson()  {
+        return new ResponseEntity(null,new HttpHeaders(),HttpStatus.FORBIDDEN);
     }
 
     @GetMapping("/{id}")

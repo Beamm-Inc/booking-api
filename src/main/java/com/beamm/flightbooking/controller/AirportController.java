@@ -1,7 +1,6 @@
 package com.beamm.flightbooking.controller;
 
 import com.beamm.flightbooking.model.Airport;
-import com.beamm.flightbooking.model.Airport;
 import com.beamm.flightbooking.service.AirportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,6 +19,12 @@ public class AirportController {
 
     @Autowired
     AirportService airportService;
+
+    @GetMapping("/{id}")
+    public Airport getAirportById(@PathVariable Integer id) {
+
+        return airportService.getAirportById(id);
+    }
 
     @GetMapping
     public Page<Airport> list(@RequestParam(defaultValue = "0") int pageNo) {

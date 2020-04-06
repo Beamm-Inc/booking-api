@@ -31,13 +31,13 @@ public class Flight
     private Airport destination;
 
 
-    @Column(name = "departuredate")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate departureDate;
-
-    @Column(name = "arrivaldate")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate arrivalDate;
+//    @Column(name = "departuredate")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
+//    private LocalDate departureDate;
+//
+//    @Column(name = "arrivaldate")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
+//    private LocalDate arrivalDate;
 
     @Column(name = "departuretime")
     @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)

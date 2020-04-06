@@ -21,7 +21,7 @@ public class LuggageAllowanceController {
     public static final String BASE_URL = "/api/v1/luggageallowance";
 
     @GetMapping("/{id}")
-    public LuggageAllowance getLuggageAllowanceById(Integer id)
+    public LuggageAllowance getLuggageAllowanceById(@PathVariable Integer id)
     {
         return luggageAllowanceService.getLuggageAllowanceById(id);
     }
@@ -40,6 +40,6 @@ public class LuggageAllowanceController {
         {
             return null;
         }
-        return new ResponseEntity<LuggageAllowance>(luggageAllowanceService.saveLuggageAllowance(luggageAllowance), HttpStatus.OK);
+        return new ResponseEntity<>(luggageAllowanceService.saveLuggageAllowance(luggageAllowance), HttpStatus.OK);
     }
 }

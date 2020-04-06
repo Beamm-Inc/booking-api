@@ -25,7 +25,9 @@ public class FlightServiceImpl implements FlightService
 
     @Override
     public Page<Flight> getSearchedFlightsPaged(LocalDate date, String origin, String destination, int pageNo) {
-        return flightRepository.findByDepartureDateAndOrigin_AirportCityContainingAndDestination_AirportCityContaining(date,origin,destination, PageRequest.of(pageNo,20));
+//        return flightRepository.findByDepartureDateAndOrigin_AirportCityContainingAndDestination_AirportCityContaining(date,origin,destination, PageRequest.of(pageNo,20));
+        return flightRepository.findByOrigin_AirportCityContainingAndDestination_AirportCityContaining(origin,destination,
+                PageRequest.of(pageNo,20));
     }
 
     @Override

@@ -121,13 +121,17 @@ public class BookingController {
             booking.setDateTimeOfBooking(LocalDateTime.now());
             booking.setPrice(scheduledFlight.getCurrentPrice());
             scheduledFlight.addPassenger(passengers);
-            String body = " Dear " + passengerIn.getPerson().getFirstName() + "\n Thank you for choosing us your booking detail \n" +
-                    scheduledFlight.getFlight().getOrigin().getAirportCity() + " to " + scheduledFlight.getFlight().getDestination().getAirportCity() +
-                    "\n Date: " + scheduledFlight.getDepartureDate() +
-                    //"Booking class:" + trip.getFlightClass() +
-                    "\n Booking Reference Code :" + booking.getBookingReference();
+            String body = "Dear " + passengerIn.getPerson().getFirstName() + "," + " thank you for choosing us." +
+                    "\nYour booking  is confirmed \nDetails of your flight: " +
+                    "\nFrom " + scheduledFlight.getFlight().getOrigin().getAirportCity() +
+                    " to " + scheduledFlight.getFlight().getDestination().getAirportCity() +
+                    "\nDate: " + scheduledFlight.getDepartureDate() + "\n"+
+                    " \nBooking Class: " + trip.getFlightClass() +"\n"+
+                    " \nFare: $" + booking.getPrice()  +"\n" +
+                    "\nReference Code : " + booking.getBookingReference();
 
-            notificationService.sendNotification("beamminc@gmail.com", passengerIn.getPerson().getEmail(), body, "Booking confirmation");
+            notificationService.sendNotification("beamminc@gmail.com", passengerIn.getPerson().getEmail(),
+                    body, "Booking confirmation");
             return new ResponseEntity<Booking>(bookingService.saveBooking(booking), HttpStatus.OK);
         } else {
             return new ResponseEntity<Booking>(HttpStatus.BAD_REQUEST);

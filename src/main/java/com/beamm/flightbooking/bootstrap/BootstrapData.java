@@ -147,16 +147,26 @@ public class BootstrapData implements CommandLineRunner {
 
         // Creating Flights
 
+//        Flight flight = new Flight(1,"ET302",airport1, airport2,
+//                LocalDate.of(2020,10,10),LocalDate.of(2020,10,10),
+//                LocalTime.now(),LocalTime.now(),434.3,43434.0);
+//        flightService.saveFlight(flight);
+//
+//        Flight flight1 = flight;
+//
+//        flight = new Flight(2,"ET555", airport2, airport1,
+//                LocalDate.of(2020,10,15),LocalDate.of(2020,10,15),
+//                LocalTime.now(), LocalTime.now(),434.3,43434.0);
+//        flightService.saveFlight(flight);
+
         Flight flight = new Flight(1,"ET302",airport1, airport2,
-                LocalDate.of(2020,10,10),LocalDate.of(2020,10,10),
                 LocalTime.now(),LocalTime.now(),434.3,43434.0);
         flightService.saveFlight(flight);
 
         Flight flight1 = flight;
 
         flight = new Flight(2,"ET555", airport2, airport1,
-            LocalDate.of(2020,10,15),LocalDate.of(2020,10,15),
-            LocalTime.now(), LocalTime.now(),434.3,43434.0);
+                LocalTime.now(), LocalTime.now(),434.3,43434.0);
         flightService.saveFlight(flight);
 
         Flight flight2 = flight;

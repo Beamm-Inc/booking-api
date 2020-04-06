@@ -1,7 +1,9 @@
 package com.beamm.flightbooking.controller;
 
 import com.beamm.flightbooking.model.Admin;
+import com.beamm.flightbooking.service.AddressService;
 import com.beamm.flightbooking.service.AdminService;
+import com.beamm.flightbooking.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,12 @@ public class AdminController {
    @Autowired
     AdminService adminService;
 
+   @Autowired
+    PersonService personService;
+
+   @Autowired
+    AddressService addressService;
+
     public static final String BASE_URL = "/api/v1/admin";
 
     @GetMapping("/{id}")
@@ -28,11 +36,11 @@ public class AdminController {
         return adminService.getAdminById(id);
     }
 
-//    @GetMapping("/{username/{username}}")
-//    public Admin getAdminByUserNameAndPassword(@PathVariable String username, String password) {
-//
-//        return adminService.getAdminByUserNameAndPassword(username, password);
-//    }
+    @GetMapping(value="/username/{username}/{password}")
+    public Admin getAdminByUserNameAndPassword(@PathVariable String username, String password) {
+
+        return adminService.getAdminByUserNameAndPassword(username, password);
+    }
 
 //    @GetMapping("/login")
 //    public int loginuservalidation(@PathVariable ("user") String username,
@@ -56,6 +64,8 @@ public class AdminController {
     @PostMapping
     public ResponseEntity<Admin> saveNewCustomer(@RequestBody @Valid Admin admin, BindingResult result, Principal principal)
     {
+        addressService.saveAddress(admin.getPerson().getAddress());
+        personService.savePerson(admin.getPerson());
         return new ResponseEntity<Admin>(this.adminService.saveAdmin(admin), HttpStatus.OK);
     }
 }

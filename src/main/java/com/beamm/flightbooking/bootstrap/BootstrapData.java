@@ -48,13 +48,6 @@ public class BootstrapData implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-//        Trip trip = new Trip();
-//        trip.setTicketNumber("Eth345679");
-//        trip.setFlightClass(FlightClass.BUSINESS);
-//        trip.setSeat("40");
-//        tripService.saveTrip(trip);
-
-//        System.out.println("---->Loading Airplanes");
 
         Airplane airplane = new Airplane();
         airplane.setAirplaneModel("Ethiopian");
@@ -109,13 +102,18 @@ public class BootstrapData implements CommandLineRunner {
         Airport airport2 = airport;
 
         Address address = new Address();//34,"a",,"c","d","12");
-        address.setCity("b");
-        address.setCity("bh");
+        address.setCity("Chicago");
+        address.setState("Illionis");
+        address.setStreet("s12N 4th");
+        address.setCountry("USA");
+        address.setZip("52556");
         addressService.saveAddress(address);
         Person person =new Person();
-        person.setFirstName("abebe");
-        person.setMiddleName("john");
-        person.setLastName("aboo");
+        person.setFirstName("King");
+        person.setMiddleName("John");
+        person.setLastName("Musa");
+        person.setPhoneNumber("123-344-0987");
+        person.setEmail("incbimm@gmial.com,biruk.bekele@gmail.com");
         person.setAddress(address);
 
         personService.savePerson(person);
